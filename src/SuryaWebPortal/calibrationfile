@@ -1,0 +1,20 @@
+[
+{
+  "calibrationId":1,
+  "exposedTime": 1440,
+  "airFlowRate":3.28,
+  "bcArea":0.7854,
+  "filterRadius":0.5,
+  "bcStrips":[1.04515556, 1.63932364, 2.43561269, 3.50277914, 4.93296866, 6.84967251, 9.41839057, 12.86092159, 17.47451468, 23.65753554],
+  "deploymentIds": [
+                    {
+                      "deploymentId":"d1",
+                      "activateDatetime":[2010,1,1,1,1,0]
+                    },
+                    {
+                      "deploymentId":"surya.pltk1",
+                      "activateDatetime":[2010,5,1,1,1,0]
+                    }
+                   ]  
+}
+]
