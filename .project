@@ -3,7 +3,9 @@
 	<name>SuryaWebPortal</name>
 	<comment></comment>
 	<projects>
+		<project>SuryaDANAFramework</project>
 		<project>SuryaDB</project>
+		<project>SuryaIANAFramework</project>
 		<project>SuryaUtils</project>
 	</projects>
 	<buildSpec>

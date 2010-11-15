@@ -16,8 +16,6 @@ from Collections.SuryaDeploymentData import *
 from Collections.SuryaProcessingList import *
 from Collections.SuryaCalibrationData import *
 from django.core.management.base import BaseCommand, CommandError
-#from DataAnalyzer.DataAnalyzer import cronjob
-from SuryaWebPortal.gmailportal.GmailPortal import GmailPortal
 
 class Command(BaseCommand):
     args = 'calibrationfile'
@@ -74,13 +72,13 @@ class Command(BaseCommand):
                                     calibrationId=calibrationData).save()
 
         # Run the Django Webserver
-        os.popen('''/home/surya/Production/SuryaWebPortal/src/SuryaWebPortal/manage.py runserver &''')
+        os.popen('''/home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/manage.py runserver &''')
         
         # Initialize the Image Analysis Controller.
-        os.popen('''python /home/surya/Production/SuryaIANAFramework/src/IANA/IANAFramework.py &''')
+        os.popen('''python /home/surya/ProjectSurya/SuryaIANAFramework/src/IANA/IANAFramework.py &''')
         
         # Start the gmail monitor.
-        os.popen('''python /home/surya/Production/SuryaWebPortal/src/SuryaWebPortal/gmailportal/GmailPortal.py &''')
+        os.popen('''python /home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/gmailportal/GmailPortal.py &''')
         
         # Result Mailer.
-        os.popen('''python /home/surya/Production/SuryaWebPortal/src/SuryaWebPortal/gmailportal/GmailResults.py &''')
+        #os.popen('''python /home/surya/Production/SuryaWebPortal/src/SuryaWebPortal/gmailportal/GmailResults.py &''')

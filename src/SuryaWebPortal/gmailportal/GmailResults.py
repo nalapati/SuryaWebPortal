@@ -125,17 +125,19 @@ class GmailResults:
                             
                             result.isEmailed = True
                             pprocResult.isEmailed = True
-                            
-                    for pprocItem in item.preProcessResultList:
-                        if not pprocItem.isEmailed:
-                            text += 'Results on PreProcessing the Image for Epoch' + str(result.epoch) + '\n'
-                            text += 'Status: '+pprocResult.status+' UploadData InvalidReason(if any): '+item.processEntity.invalidReason + '\n'
-                            
-                            img = MIMEImage(pprocResult.debugImage.read())
-                            img.add_header('content-disposition','attachment; filename="%s"'% pprocResult.debugImage.name)
-                            msg.attach(img)
-                            pprocResult.isEmailed = True
                 
+                # This segment is used generally if an error occurred and some pre-processing result hasn't been uploaded.
+                index = 1
+                for pprocItem in item.preProcessResultList:
+                    if not pprocItem.isEmailed:
+                        text += 'Results on PreProcessing the Image' + str(index) + '\n'
+                        text += 'Status: '+pprocItem.status+' UploadData InvalidReason(if any): '+item.processEntity.invalidReason + '\n'
+                        
+                        img = MIMEImage(pprocItem.debugImage.read())
+                        img.add_header('content-disposition','attachment; filename="%s"'% pprocItem.debugImage.name)
+                        msg.attach(img)
+                        pprocItem.isEmailed = True
+                        index+=1
                 
                 if text is not "":
                     msg['From'] = setting.get("username")

@@ -23,6 +23,7 @@ connect('SuryaDB')
 log = getLog('views')
 log.setLevel(logging.DEBUG)
 
+
 # The cell phone expect the following line as an OK signal in the first line
 CUSTOMIZED_PHONE_STATUS_OK   = "upok "
 CUSTOMIZED_PHONE_STATUS_FAIL = "svrfail "
