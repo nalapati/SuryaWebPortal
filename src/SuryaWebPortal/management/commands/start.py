@@ -17,6 +17,7 @@ from Collections.SuryaProcessingList import *
 from Collections.SuryaCalibrationData import *
 from django.core.management.base import BaseCommand, CommandError
 
+
 class Command(BaseCommand):
     args = 'calibrationfile'
     help = 'Initializes the Server: \n 1. Checks if mongod is running \n 2. Checks if mongoengine is installed'
