@@ -57,28 +57,43 @@ class Command(BaseCommand):
         calibrationDataList = json.loads(open(args[0],'r').read())
         
         for calibrationDataEntry in calibrationDataList:
-            calibrationData = SuryaImageAnalysisCalibrationData(calibrationId = calibrationDataEntry.get("calibrationId"),
-                                                                exposedTime   = calibrationDataEntry.get("exposedTime"),
-                                                                airFlowRate   = calibrationDataEntry.get("airFlowRate"),
-                                                                filterRadius  = calibrationDataEntry.get("filterRadius"),
-                                                                bcArea        = calibrationDataEntry.get("bcArea"),
-                                                                bcStrips      = calibrationDataEntry.get("bcStrips"))
-            calibrationData.save()
+            type = calibrationDataEntry.get("type") 
+            if  type == "compu":
+                calibrationData = SuryaImageAnalysisCalibrationData(calibrationId = calibrationDataEntry.get("calibrationId"),
+                                                                    exposedTime   = calibrationDataEntry.get("exposedTime"),
+                                                                    airFlowRate   = calibrationDataEntry.get("airFlowRate"),
+                                                                    filterRadius  = calibrationDataEntry.get("filterRadius"),
+                                                                    bcArea        = calibrationDataEntry.get("bcArea"))
+                calibrationData.save()
+            if type == "pproc":
+                calibrationData = SuryaImagePreProcessingCalibrationData(calibrationId = calibrationDataEntry.get("calibrationId"),
+                                                                   dp = calibrationDataEntry.get("dp"),
+                                                                   minimumRadius = calibrationDataEntry.get("minimumRadius"),
+                                                                   maximumRadius = calibrationDataEntry.get("maximumRadius"),
+                                                                   highThreshold = calibrationDataEntry.get("highThreshold"),
+                                                                   accumulatorThreshold = calibrationDataEntry.get("accumulatorThreshold"),
+                                                                   samplingFactor = calibrationDataEntry.get("samplingFactor"),
+                                                                   minimumDistance = calibrationDataEntry.get("minimumDistance"))
+                calibrationData.save()
+            if type == "bcstrip":
+                calibrationData = SuryaImageAnalysisBCStripData(calibrationId = calibrationDataEntry.get("calibrationId"),
+                                                            bcStrips = calibrationDataEntry.get("bcStrips"))
+                calibrationData.save()
             deploymentDataList = calibrationDataEntry.get("deploymentIds")
             # Initialize the DB with default DeploymentId to CalibrationData mapping
             for deploymentDataEntry in deploymentDataList:
                 SuryaDeploymentData(deploymentId=deploymentDataEntry.get("deploymentId"),
                                     activateDatetime=datetime(*deploymentDataEntry.get("activateDatetime")),
                                     calibrationId=calibrationData).save()
-
+                                    
         # Run the Django Webserver
-        os.popen('''/home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/manage.py runserver &''')
+        #os.popen('''/home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/manage.py runserver &''')
         
         # Initialize the Image Analysis Controller.
-        os.popen('''python /home/surya/ProjectSurya/SuryaIANAFramework/src/IANA/IANAFramework.py &''')
+        #os.popen('''python /home/surya/ProjectSurya/SuryaIANAFramework/src/IANA/IANAFramework.py &''')
         
         # Start the gmail monitor.
-        os.popen('''python /home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/gmailportal/GmailPortal.py &''')
+        #os.popen('''python /home/surya/ProjectSurya/SuryaIANAGmailPortal/src/GmailMonitor/IANAGmailMonitor.py &''')
         
         # Result Mailer.
-        #os.popen('''python /home/surya/Production/SuryaWebPortal/src/SuryaWebPortal/gmailportal/GmailResults.py &''')
+        #os.popen('''python /home/surya/ProjectSurya/SuryaIANAGmailPortal/src/GmailResults/IANAGmailResults.py &''')

@@ -13,8 +13,10 @@ from datetime import datetime
 from Logging.Logger import getLog
 from django.http import HttpResponse
 from Collections.SuryaUploadData import *
+from Collections.SuryaDeploymentData import *
+from Collections.SuryaCalibrationData import *
 from SuryaWebPortal.exceptions.UploadException import UploadException 
-from Collections.SuryaProcessingList import SuryaProcessingList
+from Collections.SuryaProcessingList import *
 import mongoengine
 
 # Connect to MongoDB
@@ -162,8 +164,31 @@ def upload_image(request):
                 
                 dbRecord.save()
                 
-                #Save this dbRecord reference in the ProcessList
-                SuryaProcessingList(processEntity=dbRecord, processedFlag=False, epoch=0, preProcessingResultList=[], configurations=[]).save()
+                
+                # This method varies from application to application gotta make it generic
+                #Save this dbRecord reference in the ProcessList, get default processing data
+                # TODO invoke this as a method
+                for item in SuryaDeploymentData.objects(deploymentId=deployment_id):
+                    # currently no datetime check, no validation as in if any one of the following is missing 
+                    # this item doesn't get added to the process list
+                    
+                    if isinstance(item.calibrationId, SuryaImageAnalysisBCStripData):
+                        log.info('got bcstrip data')
+                        bcStripData = item.calibrationId
+                    elif isinstance(item.calibrationId, SuryaImageAnalysisCalibrationData):
+                        log.info('got img analysis calib data')
+                        calibData = item.calibrationId
+                    elif isinstance(item.calibrationId, SuryaImagePreProcessingCalibrationData):
+                        log.info('got img pre proc calib data')
+                        pprocData = item.calibrationId
+                
+                SuryaIANAProcessingList(processEntity=dbRecord,
+                                        processingFlag=False,
+                                        processedFlag=False,
+                                        overrideFlag=False, 
+                                        preProcessingConfiguration=pprocData, 
+                                        computationConfiguration=calibData, 
+                                        bcStrips=bcStripData).save()
                  
             except:
                 raise UploadException("[ AccessDatabase ] Errors while attempting to save meta info to the suryaDB database."+

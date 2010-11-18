@@ -10,8 +10,8 @@ from django.core.management.base import BaseCommand, CommandError
 
 processlist = ['SuryaWebPortal/manage.py runserver',
                'IANAFramework.py',
-               'GmailResults.py',
-               'GmailPortal.py']
+               'IANAGmailResults.py',
+               'IANAGmailMonitor.py']
 
 class Command(BaseCommand):
     args="all"

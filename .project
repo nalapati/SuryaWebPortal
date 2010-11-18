@@ -5,7 +5,9 @@
 	<projects>
 		<project>SuryaDANAFramework</project>
 		<project>SuryaDB</project>
+		<project>SuryaGmailPortal</project>
 		<project>SuryaIANAFramework</project>
+		<project>SuryaIANAGmailPortal</project>
 		<project>SuryaUtils</project>
 	</projects>
 	<buildSpec>
@@ -17,5 +19,6 @@
 	</buildSpec>
 	<natures>
 		<nature>org.python.pydev.pythonNature</nature>
+		<nature>org.python.pydev.django.djangoNature</nature>
 	</natures>
 </projectDescription>
