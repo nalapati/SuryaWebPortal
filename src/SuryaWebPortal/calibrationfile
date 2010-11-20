@@ -52,5 +52,59 @@
                       "activateDatetime":[2010,5,1,1,1,0]
                     }
                    ]  
+},
+{
+  "type":"compu",
+  "calibrationId":1,
+  "exposedTime": 1440,
+  "airFlowRate":3.28,
+  "bcArea":0.7854,
+  "filterRadius":0.5,
+  "deploymentIds": [
+                    {
+                      "deploymentId":"d1",
+                      "activateDatetime":[2010,1,1,1,1,0]
+                    },
+                    {
+                      "deploymentId":"cancun.bc",
+                      "activateDatetime":[2010,5,1,1,1,0]
+                    }
+                   ]  
+},
+{
+  "type":"pproc",
+  "calibrationId":2,
+  "dp":1,
+  "minimumRadius":0,
+  "maximumRadius":0,
+  "minimumDistance":200,
+  "accumulatorThreshold":100,
+  "highThreshold":100,
+  "samplingFactor":10,
+  "deploymentIds": [
+                    {
+                      "deploymentId":"d1",
+                      "activateDatetime":[2010,1,1,1,1,0]
+                    },
+                    {
+                      "deploymentId":"cancun.bc",
+                      "activateDatetime":[2010,5,1,1,1,0]
+                    }
+                   ]  
+},
+{
+  "type":"bcstrip",
+  "calibrationId":3,
+  "bcStrips":[1.04515556, 1.63932364, 2.43561269, 3.50277914, 4.93296866, 6.84967251, 9.41839057, 12.86092159, 17.47451468, 23.65753554],
+  "deploymentIds": [
+                    {
+                      "deploymentId":"d1",
+                      "activateDatetime":[2010,1,1,1,1,0]
+                    },
+                    {
+                      "deploymentId":"cancun.bc",
+                      "activateDatetime":[2010,5,1,1,1,0]
+                    }
+                   ]  
 }
 ]
