@@ -8,6 +8,7 @@
 		<project>SuryaGmailPortal</project>
 		<project>SuryaIANAFramework</project>
 		<project>SuryaIANAGmailPortal</project>
+		<project>SuryaIANATester</project>
 		<project>SuryaUtils</project>
 	</projects>
 	<buildSpec>
