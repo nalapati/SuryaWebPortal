@@ -12,6 +12,8 @@ from mongoengine import *
 from datetime import datetime
 from Logging.Logger import getLog
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from Collections.SuryaUploadData import *
 from Collections.SuryaDeploymentData import *
 from Collections.SuryaCalibrationData import *
@@ -30,6 +32,7 @@ log.setLevel(logging.DEBUG)
 CUSTOMIZED_PHONE_STATUS_OK   = "upok "
 CUSTOMIZED_PHONE_STATUS_FAIL = "svrfail "
 
+@csrf_exempt
 def upload_image(request):
     ''' This view gets invoked when uploading data to the server. The 
         post params are validated and stored in the SuryaUploadData
@@ -139,8 +142,8 @@ def upload_image(request):
                 #Save metadata to DB   
                 dbRecord = SuryaUploadData(
                 deviceId=device_id, \
-                filename = img_filename,
                 serverDatetime=server_datetime, 
+                filename=img_filename,
                 auxId=aux_id, \
                 misc=misc, 
                 recordDatetime=record_datetime, \
@@ -164,7 +167,6 @@ def upload_image(request):
                     raise UploadException("[ SavingFile ] Errors while attempting to save the uploading file. <br/> Details: <br/>" + str(sys.exc_info()[1]))
                 
                 dbRecord.save()
-                
                 
                 # This method varies from application to application gotta make it generic
                 #Save this dbRecord reference in the ProcessList, get default processing data

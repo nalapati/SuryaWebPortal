@@ -13,11 +13,9 @@ from datetime import datetime
 from Collections.SuryaUploadData import *
 from Collections.SuryaGroundTruth import *
 from Collections.SuryaDeploymentData import *
-from Collections.SuryaProcessResult import *
 from Collections.SuryaProcessingList import *
 from Collections.SuryaCalibrationData import *
 from django.core.management.base import BaseCommand, CommandError
-from Collections import SuryaProcessResult
 
 
 class Command(BaseCommand):
@@ -55,7 +53,6 @@ class Command(BaseCommand):
         SuryaDeploymentData.drop_collection()
         SuryaCalibrationData.drop_collection()
         SuryaProcessingList.drop_collection()
-        SuryaResult.drop_collection()
         
         # Initialize the DB with default Calibration data.            
         calibrationDataList = json.loads(open(args[0],'r').read())
@@ -91,16 +88,13 @@ class Command(BaseCommand):
                                     calibrationId=calibrationData).save()
                                     
         # Run the Django Webserver
-        os.popen('''/home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/manage.py runserver &''')
+        #os.popen('''/home/surya/ProjectSurya/SuryaWebPortal/src/SuryaWebPortal/manage.py runserver &''')
         
         # Initialize the Image Analysis Controller.
-        os.popen('''python /home/surya/ProjectSurya/SuryaIANAFramework/src/IANA/IANAFramework.py &''')
+        #os.popen('''python /home/surya/ProjectSurya/SuryaIANAFramework/src/IANA/IANAFramework.py &''')
         
         # Start the gmail monitor.
-        os.popen('''python /home/surya/ProjectSurya/SuryaIANAGmailPortal/src/GmailMonitor/IANAGmailMonitor.py &''')
+        #os.popen('''python /home/surya/ProjectSurya/SuryaIANAGmailPortal/src/GmailMonitor/IANAGmailMonitor.py &''')
         
         # Result Mailer.
-        os.popen('''python /home/surya/ProjectSurya/SuryaIANAGmailPortal/src/GmailResults/IANAGmailResults.py &''')
-
-        # Tester method.
-        os.popen('''python /home/surya/ProjectSurya/SuryaIANATester/src/IANATester/IANATester.py &''')
+        #os.popen('''python /home/surya/ProjectSurya/SuryaIANAGmailPortal/src/GmailResults/IANAGmailResults.py &''')
