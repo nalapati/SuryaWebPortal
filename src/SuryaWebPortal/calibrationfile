@@ -59,7 +59,7 @@
   "exposedTime": 1440,
   "airFlowRate":3.28,
   "bcArea":0.7854,
-  "filterRadius":0.5,
+  "filterRadius":0.95,
   "deploymentIds": [
                     {
                       "deploymentId":"d1",
@@ -74,7 +74,7 @@
 {
   "type":"pproc",
   "calibrationId":5,
-  "dp":1,
+  "dp":2,
   "minimumRadius":0,
   "maximumRadius":0,
   "minimumDistance":200,

@@ -1,19 +1,44 @@
 from django.conf.urls.defaults import *
-from views import upload_image
+from django.template import RequestContext
+from django.conf import settings
+# Uncomment the next two lines to enable the admin:
+from django.contrib import admin
+admin.autodiscover()
+
+
+from SuryaWebPortal.views import home
+from SuryaWebPortal.views import upload
+from SuryaWebPortal.views.deployment import deployment
+from SuryaWebPortal.views.debug import debug
+from SuryaWebPortal.views import files
+from SuryaWebPortal.views import result
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-                       (r'^upload_image/$', upload_image),
-    # Example:
-    # (r'^SuryaWebPortal/', include('SuryaWebPortal.foo.urls')),
+                       (r'^$', home.home),
+                       (r'^upload/$', upload.upload_image),
 
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+                       # For insertion into the email message
+                       (r'^result/(\w*)/$', result.oneoffresult),
 
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+                       (r'^files/upload/(\w*)/$', files.uploadfile),
+                       (r'^files/chart/(\w*)/$', files.chartfile),
+                       (r'^files/debug/(\w*)/$', files.debugfile),
+
+                       # !! debug output !!
+                       (r'^debug/$', debug.debug),
+                       (r'^debug/uploads/$', debug.uploads),
+                       (r'^debug/uploads/(\w*)/$', debug.uploads),
+                       (r'^debug/results/$', debug.results),
+                       (r'^debug/failures/$', debug.failures),
+
+                       # for admin 
+                       (r'^admin/', include(admin.site.urls)),
+
+                       # Data Login/Logout
+                       (r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+                       (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
 )

@@ -1,5 +1,7 @@
 # Django settings for SuryaWebPortal project.
 
+import os
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -55,7 +57,7 @@ MEDIA_URL = ''
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/surya/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '9xjd^6wr1969=f@!v7*ch5)d*n(dl0@m46c@9d$=qzvsgxhukr'
@@ -78,6 +80,16 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'SuryaWebPortal.urls'
 
+LOGIN_URL = '/surya/accounts/login/'
+LOGOUT_URL = '/surya/accounts/login/'
+LOGIN_REDIRECT_URL = '/surya/'
+
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
+TEMPLATE_DIRS = (
+    os.path.join(SITE_ROOT, 'templates')
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

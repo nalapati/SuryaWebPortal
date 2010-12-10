@@ -48,17 +48,19 @@ class Command(BaseCommand):
         
         # Drop the database SuryaDB (This Implies That we lose all the stored images as well)
         mongoengine.connect('SuryaDB')
-        SuryaUploadData.drop_collection()
-        SuryaGroundTruth.drop_collection()
-        SuryaDeploymentData.drop_collection()
-        SuryaCalibrationData.drop_collection()
-        SuryaProcessingList.drop_collection()
+        #SuryaUploadData.drop_collection()
+        #SuryaGroundTruth.drop_collection()
+        #SuryaDeploymentData.drop_collection()
+        #SuryaCalibrationData.drop_collection()
+        #SuryaProcessingList.drop_collection()
         
         # Initialize the DB with default Calibration data.            
         calibrationDataList = json.loads(open(args[0],'r').read())
         
         for calibrationDataEntry in calibrationDataList:
-            type = calibrationDataEntry.get("type") 
+            if len(SuryaCalibrationData.objects(calibrationId=int(calibrationDataEntry.get("calibrationId")))) != 0:
+                continue
+            type = calibrationDataEntry.get("type")
             if  type == "compu":
                 calibrationData = SuryaImageAnalysisCalibrationData(calibrationId = calibrationDataEntry.get("calibrationId"),
                                                                     exposedTime   = calibrationDataEntry.get("exposedTime"),

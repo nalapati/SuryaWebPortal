@@ -9,14 +9,6 @@ application = django.core.handlers.wsgi.WSGIHandler()
 
 os.environ['SURYA_DEPLOY_ROOT'] = '/home/surya/deployed'
 
-#mypath = [os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaWebPortal/src/', \
-#          os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaIANAFramework/src', \
-#          os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaIANAGmailPortal/src', \
-#          os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaGmailPortal/src', \
-#          os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaWebPortal/src', \
-#          os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaUtils/src', \
-#          os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaDB/src']
-
 mypath = [os.getenv('SURYA_DEPLOY_ROOT') + '/SuryaWebPortal/src/']
 
 for p in mypath:
