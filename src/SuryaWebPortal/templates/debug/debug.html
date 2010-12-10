@@ -1,0 +1,30 @@
+
+{% extends "layout.html" %}
+
+{% block header %}
+
+<div class="span-24 last">
+<h2>Debug Data</h2>
+</div>
+<hr />
+
+<div class="span-3 colborder">
+<a href="{% url SuryaWebPortal.views.debug.debug.debug %}">Debug Main</a>
+</div>
+<div class="span-3 colborder">
+<a href="{% url SuryaWebPortal.views.debug.debug.uploads %}">Uploads</a>
+</div>
+<div class="span-3 colborder">
+<a href="{% url SuryaWebPortal.views.debug.debug.results %}">Results</a>
+</div>
+<div class="span-3 colborder">
+<a href="{% url SuryaWebPortal.views.debug.debug.failures %}">Failures</a>
+</div>
+
+
+<hr />   
+
+{% endblock %}
+
+
+{% block content %}{% endblock %}

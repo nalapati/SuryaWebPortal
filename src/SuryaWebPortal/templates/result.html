@@ -1,0 +1,36 @@
+
+{% extends "layout.html" %}
+
+{% block header %}
+<h2>Results for {{ result.item.deviceId }}</h2>
+<h2>For deployment {{ result.item.deploymentId }}</h2>
+{% endblock %}
+
+{% block content %}
+
+
+<ul>
+<li><a href="{% url SuryaWebPortal.views.files.uploadfile result.item.id %}">Click for original image</a>
+<li>Upload time: {{ result.item.serverDatetime }}
+<li>Capture time: {{ result.item.recordDatetime }}
+</ul>
+
+<ul>
+<li>BC Loading: {{ result.computationResult.result.BCAreaRed|floatformat:3  }} ug/cm^2
+<li>BC Concentration: {{ result.computationResult.result.BCVolRed|floatformat:3  }} ug/m^3
+</ul>
+
+<ul>
+<li>Exposure Time: {{ result.computationConfiguration.exposedTime }} mins
+<li>Air Flow Rate: {{ result.computationConfiguration.airFlowRate }} l/p
+<li>Filter Radius: {{ result.computationConfiguration.filterRadius }} cm
+</ul>
+
+<h2>Debug Image</h2>
+<img src="{% url SuryaWebPortal.views.files.debugfile result.id %}" alt="Results Chart">
+<h2>Results Chart</h2>
+<img src="{% url SuryaWebPortal.views.files.chartfile result.id %}" alt="Debug Image">
+
+
+{% endblock %}
+

@@ -1,0 +1,40 @@
+
+{% extends "debug/debug.html" %}
+
+
+{% block content %}
+
+
+{% for item in failures %}
+
+<table>
+<tr>
+<td>
+<ul>
+<li>FAILED: {{ item.status }}
+<li><a href="{% url SuryaWebPortal.views.debug.debug.uploads item.item.id %}">Upload data</a>
+<li>Device ID: {{ item.item.deviceId }}
+<li><a href="{% url SuryaWebPortal.views.files.uploadfile item.item.id %}">{{ item.item.filename }}</a>
+<li>Deployment: {{ item.item.deploymentId }}
+<li>Server Time: {{ item.item.serverDatetime }}
+<li>Capture Time: {{ item.item.recordDatetime }}
+<li>Valid: {{ item.item.validFlag }}
+<li>Invalid Reason: {{ item.item.invalidReason }}
+</ul>
+</td>
+<td>
+<ul>
+<li>Sampled RGB: {{ item.preProcessingResult.sampled }}
+<li>BC Loading: {{ item.computationResult.result.BCAreaRed|floatformat:4 }} ug/cm^2
+<li>BC Concentration{{ item.computationResult.result.BCVolRed|floatformat:4 }} ug/m^3
+<li><a href="{% url SuryaWebPortal.views.files.chartfile item.id %}">Chart</a>
+<li><a href="{% url SuryaWebPortal.views.files.debugfile item.id %}">Debug</a>
+</ul>
+</td>
+</tr>
+</table>
+<hr />
+
+{% endfor %}
+
+{% endblock %}

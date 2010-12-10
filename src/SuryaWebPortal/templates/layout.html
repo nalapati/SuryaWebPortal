@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+        <head>
+                <title>{% block title %}{% endblock %}</title>
+
+                <!-- <script type="text/javascript" src="/surya/static/js/jquery-1.4.2.min.js"></script> -->
+
+                <link rel="stylesheet" type="text/css" href="/surya/static/css/blueprint/screen.css" media="screen, projection" />
+                <link rel="stylesheet" type="text/css" href="/surya/static/css/blueprint/print.css" media="print"/>
+
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="/surya/static/css/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
+
+                <style>
+                {% block styles %}{% endblock %}
+                </style>
+
+                <script type="text/javascript">
+                {% block scripts %}{% endblock %}
+                </script>
+        </head>
+
+        <body>
+
+{% url SuryaWebPortal.views.home.home as homeurl %}
+
+<div class="container2">
+
+<div class="span-20 left">
+<img src="/surya/static/images/logo.gif" alt="Nexleaf Analytics">
+<h1>Global Black Carbon Monitoring</h1>
+</div>
+
+<hr />
+
+<div class="span-4 colborder">
+<a href="{{ homeurl }}">Home</a>
+</div>
+
+<!--
+<div class="span-4 colborder">
+Download (todo)
+</div>
+-->
+
+<div class="span-4 colborder">
+{% if user.is_authenticated %}
+<a href="{% url django.contrib.auth.views.logout %}">Logout</a>: {{ user.username }}
+{% else %}
+<a href="{% url django.contrib.auth.views.login %}">Login</a>
+{% endif %}
+</div>
+
+<div class="span-4 colborder">
+
+<a href="{% url admin:index %}">Admin</a>
+</div>
+
+<hr />   
+
+	{% block header %}{% endblock %}
+	
+	{% block content %}{% endblock %}
+
+
+</div>
+
+
+        </body>
+</html>

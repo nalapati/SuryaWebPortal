@@ -1,0 +1,39 @@
+
+{% extends "debug/debug.html" %}
+
+
+{% block content %}
+
+
+{% for up in uploads %}
+
+<table>
+<tr>
+<td>
+<ul>
+<li>Device ID: {{ up.deviceId }}
+<li>Deployment: {{ up.deploymentId }}
+<li>Server Time: {{ up.serverDatetime }}
+<li>Capture Time: {{ up.recordDatetime }}
+<li><a href="{% url SuryaWebPortal.views.files.uploadfile up.id %}">{{ up.filename }}</a>
+<li>Data Type: {{ up.datatype }}
+<li>GPS: {{ up.gpsLatLong }}, Alt: {{ up.gpsAltitude }}
+</ul>
+</td>
+<td>
+<ul>
+<li>Version: {{ up.version }}
+<li>AuxID: {{ up.auxId }}
+<li>Tag: {{ up.tag }}
+<li>Misc: {{ up.misc }}
+<li>Valid: {{ up.validFlag }}
+<li>Invalud Reason: {{ up.invalidReason }}
+</ul>
+</td>
+</tr>
+</table>
+<hr />
+
+{% endfor %}
+
+{% endblock %}
